@@ -6,6 +6,7 @@ use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
+use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Component as FormComponent;
@@ -15,6 +16,8 @@ use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\SimplePage;
+use Filament\Support\Enums\ActionSize;
+use Filament\Support\Enums\Alignment;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
 use Illuminate\Validation\ValidationException;
@@ -26,6 +29,7 @@ class Login extends SimplePage
 {
     use WithRateLimiting;
     use InteractsWithFormActions;
+    use InteractsWithActions;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
@@ -96,6 +100,50 @@ class Login extends SimplePage
         ];
     }
 
+    public function action1(): Action
+    {
+        return Action::make('action1')
+            ->extraAttributes([
+                'class' => 'w-full'
+            ])
+            ->label('Action 1')
+            ->action(fn(array $data) => dd('Action 1'))
+            ->form([
+                TextInput::make('action1')
+                    ->label('Action 1')
+                    ->required()
+                    ->autofocus()
+                    ->extraAttributes(['tabindex' => 3]),
+            ]);
+    }
+
+    public function form(Form $form): Form
+    {
+        return $form;
+    }
+
+    public function action2()
+    {
+        return Action::make('action2')
+            ->extraAttributes([
+                'class' => 'w-full'
+            ])
+            ->label('Action 2')
+            ->action(fn(array $data) => dd('Action 2'))
+            ->form([
+                TextInput::make('action2')
+                    ->label('Action 2')
+                    ->required()
+                    ->autofocus()
+                    ->extraAttributes(['tabindex' => 3]),
+            ]);
+    }
+
+    public function getFormActionsAlignment(): string
+    {
+        return Alignment::Center->name;
+    }
+
     /**
      * @return array<int | string, string | Form>
      */
@@ -112,11 +160,6 @@ class Login extends SimplePage
                     ->statePath('data'),
             ),
         ];
-    }
-
-    public function form(Form $form): Form
-    {
-        return $form;
     }
 
     protected function getEmailFormComponent(): FormComponent
