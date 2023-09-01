@@ -26,8 +26,7 @@
         </div>
     </div>
     <div class="relative hidden w-0 flex-1 lg:block">
-        <div class="absolute inset-0 h-full w-full object-cover bg-gradient-to-l from-primary-300 to-success-500" alt="">
-        </div>
+        <img class="absolute inset-0 h-full w-full object-cover" src="{{ asset('images/zally-orsi-DF3LkQN6qgo-unsplash.jpg') }}" alt="">
     </div>
 
     <x-filament-actions::modals />
