@@ -31,7 +31,7 @@
 
     <x-filament-actions::modals />
 
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-preset-firefly@2/tsparticles.preset.firefly.bundle.min.js"></script>
+    <script src="{{ asset('js/app/particles-bundle.js') }}"></script>
     <script>
         (async () => {
             await loadFireflyPreset(tsParticles); // this is required only if you are not using the bundle script
